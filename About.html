@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Pure Blue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .brand-text-blue { color: #1a5a96; }
+        .brand-text-green { color: #2e8540; }
+        .brand-bg-blue { background-color: #1a5a96; }
+        .brand-bg-blue:hover { background-color: #154b7e; }
+        .nav-btn {
+            background-color: #1a5a96;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 8px 16px;             /* px-4 py-2 */
+            border-radius: 12px;            /* rounded look like screenshot */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: background-color .25s ease, box-shadow .25s ease, transform .05s ease;
+            display: inline-block;
+        }
+        .nav-btn:hover {
+            background-color: #154b7e;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+        }
+        .nav-btn:active {
+            transform: translateY(1px);
+        }
+        .nav-btn:focus {
+            outline: 2px solid #aec7e8;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i data-lucide="leaf" class="w-8 h-8 brand-text-blue"></i>
+                <span class="text-2xl font-bold brand-text-blue">Pure <span class="brand-text-green">Blue</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:brand-text-blue transition duration-300">Home</a>
+                <a href="about.html" class="brand-text-blue font-semibold">About Us</a>
+                <a href="services.html" class="text-gray-600 hover:brand-text-blue transition duration-300">Our Services</a>
+                <a href="contact.html" class="text-gray-600 hover:brand-text-blue transition duration-300">Contact</a>
+                
+            </div>
+            
+           <div class="flex items-center space-x-4">
+                    <a href="src/register.html" target="_blank" class="nav-btn">SignUp</a>
+                    <a href="src/login.html" target="_blank" class="nav-btn">Login</a>
+                </div>
+
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+      
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+            <a href="about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About Us</a>
+            <a href="services.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Our Services</a>
+            <a href="contact.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="bg-blue-50 py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold brand-text-blue">Delivering Trust, One Drop at a Time</h1>
+                <p class="mt-4 text-lg text-gray-600">Learn what makes Pure Blue the best choice for your family's health.</p>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="Src/purification_plant.jpg" alt="Purification Plant" class="rounded-xl shadow-xl w-full">
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold brand-text-blue mb-4">Why Choose Pure Blue?</h2>
+                        <p class="text-gray-700 leading-relaxed">
+                            In today's market, consumers are often caught between two extremes: small, local water vendors who may not guarantee hygiene and safety, and large, established brands that charge premium prices for their products. At Pure Blue, we saw this gap and created a solution.
+                        </p>
+                        <p class="mt-4 text-gray-700 leading-relaxed">
+                            We are committed to providing water that is not only safe, thoroughly tested, and FSSAI-approved but also accessible. Our advanced RO+UV+Ozonized purification process ensures every drop is pure, while retaining essential minerals for your health. With our hygienically sealed and cleaned jars, we prioritize your well-being above all. Pure Blue offers the quality of a major brand at a price that makes sense for every household.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="py-20 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">Pure Blue vs. The Competition</h2>
+                    <p class="mt-4 text-lg text-gray-600">Here's how we stand out from the rest.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full max-w-5xl mx-auto text-left border-collapse shadow-lg rounded-lg">
+                        <thead>
+                            <tr class="bg-white">
+                                <th class="p-4 font-bold text-lg brand-text-blue rounded-tl-lg">Feature</th>
+                                <th class="p-4 font-bold text-lg text-center text-red-600">Non-Branded</th>
+                                <th class="p-4 font-bold text-lg text-center text-orange-500">Big Brands</th>
+                                <th class="p-4 font-bold text-lg text-center brand-text-green rounded-tr-lg">Pure Blue</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr class="border-b border-gray-200"><td class="p-4 font-semibold">Affordability</td><td class="p-4 text-center text-gray-500">Affordable</td><td class="p-4 text-center text-gray-500">High (Premium)</td><td class="p-4 text-center font-bold brand-text-green">Affordable</td></tr>
+                            <tr class="border-b border-gray-200 bg-gray-50"><td class="p-4 font-semibold">Hygiene</td><td class="p-4 text-center text-gray-500">Unreliable</td><td class="p-4 text-center text-gray-500">Standard</td><td class="p-4 text-center font-bold brand-text-green">100% Guaranteed</td></tr>
+                            <tr class="border-b border-gray-200"><td class="p-4 font-semibold">Jar Cleanliness</td><td class="p-4 text-center text-gray-500">Rarely inspected</td><td class="p-4 text-center text-gray-500">Old, scratched jars</td><td class="p-4 text-center font-bold brand-text-green">Always Cleaned, UV-Resistant</td></tr>
+                            <tr class="border-b border-gray-200 bg-gray-50"><td class="p-4 font-semibold">Purification</td><td class="p-4 text-center text-gray-500">Basic RO</td><td class="p-4 text-center text-gray-500">RO + UV</td><td class="p-4 text-center font-bold brand-text-green">RO + UV + Ozonised</td></tr>
+                            <tr class="border-b border-gray-200"><td class="p-4 font-semibold">Delivery</td><td class="p-4 text-center text-gray-500">Inconsistent</td><td class="p-4 text-center text-gray-500">Slow</td><td class="p-4 text-center font-bold brand-text-green">On-Time, Local Support</td></tr>
+                            <tr class="border-b border-gray-200 bg-gray-50"><td class="p-4 font-semibold">Water Testing</td><td class="p-4 text-center text-gray-500">Never Tested</td><td class="p-4 text-center text-gray-500">Tested & Certified</td><td class="p-4 text-center font-bold brand-text-green">Tested & Certified</td></tr>
+                            <tr><td class="p-4 font-semibold rounded-bl-lg">Freshness</td><td class="p-4 text-center text-gray-500">Unreliable</td><td class="p-4 text-center text-gray-500">Delayed packing</td><td class="p-4 text-center font-bold brand-text-green rounded-br-lg">Same-Day Sealed Delivery</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="py-12">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">Our Certifications & Approvals</h2>
+                    <p class="mt-4 text-lg text-gray-600">We adhere to the highest standards of quality and safety.</p>
+                </div>
+                <div class="flex justify-center items-center flex-wrap gap-10 md:gap-16">
+                    <div class="text-center">
+                        <img src="Src/Fssai.png" alt="FSSAI Approved" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+                        <p class="mt-2 font-semibold text-gray-700">FSSAI Approved</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="Src/iso.png" alt="ISO Certified" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+                        <p class="mt-2 font-semibold text-gray-700">ISO Certified</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="Src/DPIIT.png" alt="Startup India Recognized" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+                        <p class="mt-2 font-semibold text-gray-700">Govt. Recognized</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="Src/LAB_TESTED.jpg" alt="Lab Tested" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+                        <p class="mt-2 font-semibold text-gray-700">Lab Tested</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Footer content identical to other pages -->
+             <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold">Pure Blue</h3>
+                    <p class="mt-4 text-gray-400">Your trusted partner for pure, safe, and hygienic packaged drinking water.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Quick Links</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition">Our Services</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Contact Us</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex items-center space-x-3"><i data-lucide="phone" class="w-5 h-5"></i><a href="tel:+918882588842" class="text-gray-400 hover:text-white transition">+91 88825 88842</a></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="mail" class="w-5 h-5"></i><a href="mailto:contact@pureblueaqua.com" class="text-gray-400 hover:text-white transition">contact@pureblueaqua.com</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="text-xl font-bold">Follow Us</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="https://wa.me/918882588842" target="_blank" class="text-gray-400 hover:text-white transition"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Pure Blue Aqua. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        {
+            lucide.createIcons();
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

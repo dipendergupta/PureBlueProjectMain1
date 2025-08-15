@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Pure Blue</title>
+
+  <!-- Tailwind + Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .brand-text-blue { color: #1a5a96; }
+    .brand-text-green { color: #2e8540; }
+    .brand-bg-blue { background-color: #1a5a96; }
+    .brand-bg-blue:hover { background-color: #154b7e; }
+    .site-container { max-width: 1100px; margin: 0 auto; }
+    .nav-btn{background:#1a5a96;color:#fff;font-weight:600;padding:8px 16px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .nav-btn:hover{background:#154b7e}
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+    <nav class="site-container px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <i data-lucide="leaf" class="w-8 h-8 brand-text-blue"></i>
+        <span class="text-2xl font-bold brand-text-blue">Pure <span class="brand-text-green">Blue</span></span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="text-gray-600 hover:text-[#1a5a96]">Home</a>
+        <a href="about.html" class="text-gray-600 hover:text-[#1a5a96]">About Us</a>
+        <a href="services.html" class="text-gray-600 hover:text-[#1a5a96]">Our Services</a>
+        <a href="contact.html" class="brand-text-blue font-semibold">Contact</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="src/register.html" target="_blank" class="nav-btn">SignUp</a>
+        <a href="src/login.html" target="_blank" class="nav-btn">Login</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-white/90 px-4 pb-4">
+      <a href="index.html" class="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded">Home</a>
+      <a href="about.html" class="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded">About Us</a>
+      <a href="services.html" class="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded">Our Services</a>
+      <a href="contact.html" class="block py-2 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded">Contact</a>
+      <div class="flex items-center gap-3 mt-3">
+        <a href="src/register.html" target="_blank" class="nav-btn flex-1 text-center">SignUp</a>
+        <a href="Admin_page/src/login.html" target="_blank" class="nav-btn flex-1 text-center">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="bg-blue-50 py-16">
+      <div class="site-container px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold brand-text-blue">Get In Touch</h1>
+        <p class="mt-4 text-lg text-gray-600">We’re here to help with any questions or orders.</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="py-20">
+      <div class="site-container px-6">
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Info -->
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-2xl font-bold brand-text-blue flex items-center"><i data-lucide="phone-call" class="w-6 h-6 mr-3"></i>Call or WhatsApp</h3>
+              <p class="mt-2 text-gray-600">Fastest way to place an order or ask a question.</p>
+              <a href="https://wa.me/918882588842" target="_blank" class="mt-2 text-2xl font-semibold brand-text-green hover:underline block">+91 88825 88842</a>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold brand-text-blue flex items-center"><i data-lucide="mail" class="w-6 h-6 mr-3"></i>Email Us</h3>
+              <p class="mt-2 text-gray-600">Business inquiries or feedback.</p>
+              <a href="mailto:contact@pureacqua.com" class="mt-2 text-2xl font-semibold brand-text-green hover:underline block">contact@pureacqua.com</a>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <div class="bg-white p-8 rounded-lg shadow-xl">
+            <h3 class="text-2xl font-bold brand-text-blue mb-6">Send us a Message</h3>
+            <div id="alert" class="hidden mb-4 p-4 rounded-lg"></div>
+
+            <form id="contactForm" novalidate>
+              <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                <input id="name" name="name" type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+              <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                <input id="email" name="email" type="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+              <div class="mb-4">
+                <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+              </div>
+
+              <!-- Honeypot (spam protection) -->
+              <input type="text" id="hp_field" name="hp_field" class="hidden" autocomplete="off" tabindex="-1">
+
+              <button id="submitBtn" type="submit" class="w-full brand-bg-blue text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center gap-2">
+                <span id="btnText">Send Message</span>
+                <svg id="btnSpinner" class="hidden animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4A4 4 0 008 12H4z"></path>
+                </svg>
+              </button>
+
+              <p class="mt-3 text-xs text-gray-400">Trouble? <a class="underline" href="mailto:contact@pureacqua.com?subject=Website%20Inquiry">Email us directly</a>.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (short) -->
+  <footer class="bg-gray-800 text-white">
+    <div class="site-container px-6 py-6 text-center text-gray-400 text-sm">
+      © 2024 Pure Blue Aqua. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Firebase + Callable Function -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-functions.js";
+    import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    // ==== TODO: paste your firebase config here ====
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+
+    // Init
+    const app = initializeApp(firebaseConfig);
+    const functions = getFunctions(app);
+    const db = getFirestore(app);
+
+    // UI helpers
+    lucide.createIcons();
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    const alertBox = document.getElementById('alert');
+    function showAlert(type, msg) {
+      alertBox.className = "mb-4 p-4 rounded-lg " + (type === 'success'
+        ? "bg-green-50 text-green-700 border border-green-200"
+        : "bg-red-50 text-red-700 border border-red-200");
+      alertBox.textContent = msg;
+      alertBox.classList.remove('hidden');
+    }
+
+    // Form submit
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.classList.add('hidden');
+
+      // Honeypot
+      if (document.getElementById('hp_field').value) return;
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) { showAlert('error','Please fill in all fields.'); return; }
+
+      submitBtn.disabled = true; btnText.textContent = "Sending..."; btnSpinner.classList.remove('hidden');
+
+      try {
+        // Log to Firestore (optional)
+        await addDoc(collection(db, "contactMessages"), { name, email, message, createdAt: serverTimestamp() });
+
+        // Call Cloud Function to send email
+        const sendContactEmail = httpsCallable(functions, "sendContactEmail");
+        await sendContactEmail({ name, email, message, to: "contact@pureacqua.com" });
+
+        showAlert('success', 'Thanks! Your message has been sent to contact@pureacqua.com.');
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        showAlert('error', 'Failed to send message. Please try again or email us at contact@pureacqua.com.');
+      } finally {
+        submitBtn.disabled = false; btnText.textContent = "Send Message"; btnSpinner.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

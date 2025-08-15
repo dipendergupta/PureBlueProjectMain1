@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 24px;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    h2 {
+      margin: 0;
+      color: #3d2b7d;
+    }
+    .btn-add {
+      background: #3d2b7d;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .btn-add:hover {
+      background: #2a1e5c;
+    }
+    .search-box {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .search-box input[type="text"] {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      width: 260px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 15px;
+    }
+    th {
+      background: #ede7f6;
+      color: #3d2b7d;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    .product-photo {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      background-color: white;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .bottom-nav a {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: none;
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-row">
+      <h2>Products List</h2>
+      <button class="btn-add" onclick="window.location.href='addProducts.html'">+ Add Product</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search products...">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Details</th>
+          <th>MRP</th>
+          <th>Offer Price</th>
+          <th>Security Deposit Req?</th>
+          <th>Photos</th>
+        </tr>
+      </thead>
+      <tbody id="productsTableBody">
+        <!-- Rows will be inserted by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="users.list.html">Users</a>
+    <a href="orders.html">Orders</a>
+    <a href="PaymentsHistory.html">Payments</a>
+    <a href="products.html">Products</a>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../firebase.js"></script>
+
+  <script>
+    const tableBody = document.getElementById('productsTableBody');
+    const searchInput = document.getElementById('searchInput');
+    let products = [];
+
+    function renderTable(data) {
+      tableBody.innerHTML = '';
+      data.forEach((product, i) => {
+        // Replace 2nd product photo with your new cover.png
+        const photoSrc = (i === 1) ? 'cover.png' : (product.photo || '');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${product.productId || ''}</td>
+          <td>${product.name || ''}</td>
+          <td>${product.category || ''}</td>
+          <td>${product.details || ''}</td>
+          <td>₹${product.mrp ?? ''}</td>
+          <td>₹${product.offer ?? ''}</td>
+          <td>${product.security ?? ''}</td>
+          <td><img class="product-photo" src="${photoSrc}" alt="Product Photo"></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function filterProducts() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = products.filter(product =>
+        (product.productId || '').toLowerCase().includes(query) ||
+        (product.name || '').toLowerCase().includes(query) ||
+        (product.category || '').toLowerCase().includes(query) ||
+        (product.details || '').toLowerCase().includes(query) ||
+        String(product.mrp || '').includes(query) ||
+        String(product.offer || '').includes(query) ||
+        (product.security || '').toLowerCase().includes(query)
+      );
+      renderTable(filtered);
+    }
+
+    searchInput.addEventListener('input', filterProducts);
+
+    // Fetch products from Firestore
+    async function fetchProducts() {
+      try {
+        const snapshot = await db.collection('products').get();
+        products = snapshot.docs.map(doc => doc.data());
+        renderTable(products);
+      } catch (err) {
+        tableBody.innerHTML = '<tr><td colspan="8">Failed to load products from Firebase.</td></tr>';
+      }
+    }
+
+    // Initial fetch
+    fetchProducts();
+  </script>
+</body>
+</html>

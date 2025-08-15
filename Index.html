@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pure Blue - Hygienic Packaged Drinking Water</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+    .brand-text-blue { color: #1a5a96; }
+    .brand-text-green { color: #2e8540; }
+    .brand-bg-blue { background-color: #1a5a96; }
+    .brand-bg-blue:hover { background-color: #154b7e; }
+
+    /* reveal on scroll */
+    .fade-in-up { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <i data-lucide="leaf" class="w-8 h-8 brand-text-blue"></i>
+        <span class="text-2xl font-bold brand-text-blue">Pure <span class="brand-text-green">Blue</span></span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="brand-text-blue font-semibold">Home</a>
+        <a href="about.html" class="text-gray-600 hover:brand-text-blue transition duration-300">About Us</a>
+        <a href="services.html" class="text-gray-600 hover:brand-text-blue transition duration-300">Our Services</a>
+        <a href="contact.html" class="text-gray-600 hover:brand-text-blue transition duration-300">Contact</a>
+      </div>
+      <span class="hidden md:inline-flex" style="gap:0.25rem">
+        <a href="src/register.html" target="_blank" class="brand-bg-blue text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition duration-300">SignUp</a>
+        <a href="src/login.html" target="_blank" class="brand-bg-blue text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition duration-300">Login</a>
+      </span>
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden">
+      <a href="index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+      <a href="about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About Us</a>
+      <a href="services.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Our Services</a>
+      <a href="contact.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Contact</a>
+      <a href="src/register.html" target="_blank" class="block py-2 px-4 text-sm text-blue-700 font-semibold hover:bg-gray-100">SignUp</a>
+      <a href="src/login.html" target="_blank" class="block py-2 px-4 text-sm text-blue-700 font-semibold hover:bg-gray-100">login</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section (fully responsive image using <picture>) -->
+    <section class="relative w-full min-h-[55vh] md:min-h-[70vh] xl:min-h-[85vh]">
+      <!-- The image layer -->
+      <picture class="absolute inset-0 -z-10 block">
+        <!-- OPTIONAL: if you later add device-optimized files, put them here -->
+        <!-- <source media="(max-width: 640px)" srcset="Src/BackGroundImage-mobile.jpg"> -->
+        <!-- <source media="(max-width: 1024px)" srcset="Src/BackGroundImage-tablet.jpg"> -->
+        <!-- Fallback / default -->
+        <img
+          src="Src/BackGroundImage.jpg"
+          alt="Pure Blue background"
+          class="w-100 h-100 object-cover sm:object-[50%_20%] md:object-center"
+          loading="eager"
+          fetchpriority="high"
+          
+        />
+      </picture>
+
+      <!-- Optional overlay (dim or tint) -->
+      <!-- <div class="absolute inset-0 bg-black/20 -z-10"></div> -->
+
+      <div class="pt-24 pb-32">
+        <div class="container mx-auto px-6 text-center">
+          <!-- Add your hero text/buttons here if you want -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-10">
+          <a href="services.html" class="brand-bg-blue text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 ease-in-out">Explore Our Products</a>
+        </div>
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">The Pure Blue Promise</h2>
+          <p class="mt-4 text-lg text-gray-600">Quality you can taste, and trust you can feel.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div class="bg-white p-8 rounded-xl shadow-lg fade-in-up">
+            <div class="bg-blue-100 inline-block p-4 rounded-full"><i data-lucide="shield-check" class="w-8 h-8 brand-text-blue"></i></div>
+            <h3 class="text-xl font-bold mt-4">Advanced Purification</h3>
+            <p class="mt-2 text-gray-600">Our water is treated with RO, UV, and Ozonation to ensure it's free from all impurities.</p>
+          </div>
+          <div class="bg-white p-8 rounded-xl shadow-lg fade-in-up" style="transition-delay: .2s;">
+            <div class="bg-blue-100 inline-block p-4 rounded-full"><i data-lucide="gem" class="w-8 h-8 brand-text-blue"></i></div>
+            <h3 class="text-xl font-bold mt-4">Natural Minerals</h3>
+            <p class="mt-2 text-gray-600">We retain essential natural minerals, ensuring our water is not just pure, but healthy too.</p>
+          </div>
+          <div class="bg-white p-8 rounded-xl shadow-lg fade-in-up" style="transition-delay: .4s;">
+            <div class="bg-blue-100 inline-block p-4 rounded-full"><i data-lucide="sparkles" class="w-8 h-8 brand-text-blue"></i></div>
+            <h3 class="text-xl font-bold mt-4">Hygienic Packaging</h3>
+            <p class="mt-2 text-gray-600">Our UV-resistant jars are always sanitized and sealed for maximum safety and freshness.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="py-20 bg-slate-100">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="fade-in-up">
+            <img src="Src/DrinkingWater.png" alt="Happy Family" class="rounded-xl shadow-2xl w-full">
+          </div>
+          <div class="fade-in-up" style="transition-delay: .2s;">
+            <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">Big Brand Quality, Affordable Price</h2>
+            <p class="mt-4 text-lg text-gray-600">Pure Blue bridges the gap between unreliable local vendors and overpriced brands. We provide FSSAI-approved, lab-tested water that you and your family can trust, without breaking the bank.</p>
+            <a href="about.html" class="mt-6 inline-block text-lg font-semibold brand-text-green hover:underline">Learn More About Us &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">Ready to Experience True Purity?</h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Get fresh, hygienic drinking water delivered right to your doorstep. It's quick, easy, and reliable.</p>
+        <div class="mt-8">
+          <a href="https://wa.me/918882588842" target="_blank" class="brand-bg-blue text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 ease-in-out">Order on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Certifications -->
+  <section class="py-5">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold brand-text-blue">Our Certifications & Approvals</h2>
+        <p class="mt-4 text-lg text-gray-600">We adhere to the highest standards of quality and safety.</p>
+      </div>
+      <div class="flex justify-center items-center flex-wrap gap-10 md:gap-16">
+        <div class="text-center">
+          <img src="Src/Fssai.png" alt="FSSAI Approved" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+          <p class="mt-2 font-semibold text-gray-700">FSSAI Approved</p>
+        </div>
+        <div class="text-center">
+          <img src="Src/iso.png" alt="ISO Certified" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+          <p class="mt-2 font-semibold text-gray-700">ISO Certified</p>
+        </div>
+        <div class="text-center">
+          <img src="Src/DPIIT.png" alt="Startup India Recognized" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+          <p class="mt-2 font-semibold text-gray-700">Govt. Recognized</p>
+        </div>
+        <div class="text-center">
+          <img src="Src/LAB_TESTED.jpg" alt="Lab Tested" class="h-10 mx-auto transition-transform duration-300 hover:scale-110">
+          <p class="mt-2 font-semibold text-gray-700">Lab Tested</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-800 text-white">
+    <div class="container mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold">Pure Blue</h3>
+          <p class="mt-4 text-gray-400">Your trusted partner for pure, safe, and hygienic packaged drinking water.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Quick Links</h3>
+          <ul class="mt-4 space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">About Us</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-white transition">Our Services</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Contact Us</h3>
+          <ul class="mt-4 space-y-3">
+            <li class="flex items-center space-x-3"><i data-lucide="phone" class="w-5 h-5"></i><a href="tel:+918882588842" class="text-gray-400 hover:text-white transition">+91 88825 88842</a></li>
+            <li class="flex items-center space-x-3"><i data-lucide="mail" class="w-5 h-5"></i><a href="mailto:contact@pureblueaqua.com" class="text-gray-400 hover:text-white transition">contact@pureblueaqua.com</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold">Follow Us</h3>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            <a href="https://wa.me/918882588842" target="_blank" class="text-gray-400 hover:text-white transition"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+        <p>&copy; 2024 Pure Blue Aqua. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

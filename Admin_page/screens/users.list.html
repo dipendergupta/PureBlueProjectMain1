@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User List</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    /* Header */
+    .header {
+      background-color: white;
+      color: white;
+      padding: 15px;
+      font-size: 22px;
+    }
+
+    /* Table */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Buttons */
+    .btn {
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-edit, .btn-block {
+      background-color: #4CAF50;
+    }
+    .btn-delete {
+      background-color: #F44336;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: white;
+      border-top: 1px solid #ccc;
+      padding: 5px 0;
+    }
+    .nav-item {
+      text-align: center;
+      color: gray;
+      font-size: 12px;
+    }
+    .nav-item.active {
+      color: #8BC34A;
+    }
+    .nav-item img {
+      width: 24px;
+      height: 24px;
+      display: block;
+      margin: 0 auto 4px;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Header -->
+  <div class="header">User List</div>
+
+  <!-- Search Bar -->
+  <div style="padding: 12px 16px 0 16px; background: #fff;">
+    <div style="position: relative; width: 100%; display: flex; align-items: center;">
+      <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="7" stroke="#888" stroke-width="2"/>
+          <line x1="14.2" y1="14.2" x2="18" y2="18" stroke="#888" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <input type="text" id="searchInput" placeholder="Search by name, phone, email, or address..." style="width: 100%; padding: 8px 12px 8px 38px; border-radius: 6px; border: 1px solid #ccc; font-size: 15px;">
+    </div>
+  </div>
+
+  <!-- Add spacing between search and table -->
+  <div style="height: 18px;"></div>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Sr No.</th>
+        <th>User Name</th>
+        <th>Mobile Number</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Wallets</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="usersTableBody">
+      <!-- Rows will be inserted by JavaScript -->
+    </tbody>
+  </table>
+
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="dashboard.html" style="flex: 1; padding: 10px; border: none; background: none; font-size: 14px; text-align: center; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">Dashboard</a>
+    <a href="users.list.html" style="flex: 1; padding: 10px; border: none; background: none; font-size: 14px; text-align: center; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">Users</a>
+    <a href="orders.html" style="flex: 1; padding: 10px; border: none; background: none; font-size: 14px; text-align: center; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">Orders</a>
+    <a href="PaymentsHistory.html" style="flex: 1; padding: 10px; border: none; background: none; font-size: 14px; text-align: center; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">Payments</a>
+    <a href="products.html" style="flex: 1; padding: 10px; border: none; background: none; font-size: 14px; text-align: center; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">Products</a>
+  </div>
+
+  <style>
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    background-color: white;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    z-index: 100;
+  }
+  .bottom-nav a {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  </style>
+
+  <script>
+    // Firebase SDKs (must be included before firebase.js)
+    document.write('<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"><\/script>');
+    document.write('<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"><\/script>');
+    document.write('<script src="../firebase.js"><\/script>');
+
+    const tableBody = document.getElementById('usersTableBody');
+    let users = [];
+
+    function renderTable(data) {
+      tableBody.innerHTML = '';
+      data.forEach((user, index) => {
+        let address = '';
+        if (Array.isArray(user.addresses) && user.addresses.length > 0) {
+          address = user.addresses.map(addr => `<div>${addr}</div>`).join('');
+        }
+        tableBody.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${user.fullName || ''}</td>
+            <td>${user.phoneNumber || ''}</td>
+            <td>${user.email || ''}</td>
+            <td>${address}</td>
+            <td>₹${user.wallet || 0}</td>
+            <td>
+              <button class="btn btn-edit" onclick="editUser(${users.indexOf(user)})">Edit</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // Search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const query = searchInput.value.trim().toLowerCase();
+          if (!query) {
+            renderTable(users);
+            return;
+          }
+          const filtered = users.filter(user => {
+            const name = (user.fullName || '').toLowerCase();
+            const phone = (user.phoneNumber || '').toLowerCase();
+            const email = (user.email || '').toLowerCase();
+            const wallet = (user.wallet || '').toString();
+            let addresses = '';
+            if (Array.isArray(user.addresses)) {
+              addresses = user.addresses.join(' ').toLowerCase();
+            }
+            return (
+              name.includes(query) ||
+              phone.includes(query) ||
+              email.includes(query) ||
+              addresses.includes(query) ||
+              wallet.includes(query)
+            );
+          });
+          renderTable(filtered);
+        });
+      }
+    });
+
+    async function fetchUsers() {
+      try {
+        const snapshot = await db.collection('users').get();
+        users = snapshot.docs.map(doc => {
+          const data = doc.data();
+          data.docId = doc.id; // Attach Firestore doc id for reliable editing
+          return data;
+        });
+        renderTable(users);
+      } catch (err) {
+        tableBody.innerHTML = '<tr><td colspan="7">Failed to load users from Firebase.</td></tr>';
+      }
+    }
+
+function editUser(index) {
+  const user = users[index];
+  // Always use Firestore docId for editing
+  window.location.href = `editUser.html?id=${encodeURIComponent(user.docId)}`;
+}
+
+    // Block and delete functions removed as only edit is required
+
+    // Initial fetch
+    window.addEventListener('DOMContentLoaded', fetchUsers);
+  </script>
+
+</body>
+</html>

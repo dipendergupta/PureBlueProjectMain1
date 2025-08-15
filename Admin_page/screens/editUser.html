@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 30px 24px 24px 24px;
+    }
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    .addresses-list {
+      margin-bottom: 10px;
+    }
+    .address-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .address-item input {
+      flex: 1;
+      margin-right: 8px;
+    }
+    .remove-address {
+      background: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+    .add-address {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 12px;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+    .btn {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-save {
+      background: #3d2b7d;
+      color: #fff;
+    }
+    .btn-cancel {
+      background: #ccc;
+      color: #333;
+    }
+    .msg {
+      text-align: center;
+      margin-top: 18px;
+      color: #388e3c;
+      font-weight: bold;
+    }
+    .error {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Edit User</h2>
+    <form id="editUserForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" required>
+
+      <label for="phoneNumber">Mobile Number</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label>Addresses</label>
+      <div id="addressesList" class="addresses-list"></div>
+      <button type="button" class="add-address" onclick="addAddressField()">+ Add Address</button>
+
+      <label for="wallet">Wallet</label>
+      <div id="walletDisplay" style="padding:8px 0 8px 0; font-size:16px; color:#333; font-weight:bold;"></div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-cancel" onclick="window.location.href='users.list.html'">Cancel</button>
+        <button type="submit" class="btn btn-save">Save</button>
+      </div>
+      <div id="msg" class="msg"></div>
+    </form>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../firebase.js"></script>
+  <script>
+
+    // Get Firestore docId from query param
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    let userDocId = getQueryParam('id');
+    let userData = null;
+
+    // Fetch user data from Firestore using docId
+    async function fetchUser() {
+      if (!userDocId) {
+        document.getElementById('msg').innerText = 'Invalid user.';
+        return;
+      }
+      try {
+        const doc = await db.collection('users').doc(userDocId).get();
+        if (!doc.exists) {
+          document.getElementById('msg').innerText = 'User not found.';
+          return;
+        }
+        userData = doc.data();
+        fillForm(userData);
+      } catch (err) {
+        document.getElementById('msg').innerText = 'Failed to fetch user.';
+      }
+    }
+
+    function fillForm(user) {
+      document.getElementById('fullName').value = user.fullName || '';
+      document.getElementById('phoneNumber').value = user.phoneNumber || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('walletDisplay').innerText = '₹' + (user.wallet || 0);
+      renderAddresses(user.addresses || []);
+    }
+
+    function renderAddresses(addresses) {
+      const list = document.getElementById('addressesList');
+      list.innerHTML = '';
+      addresses.forEach((addr, idx) => {
+        const div = document.createElement('div');
+        div.className = 'address-item';
+        div.innerHTML = `<input type="text" value="${addr}" onchange="updateAddress(${idx}, this.value)">
+          <button type="button" class="remove-address" onclick="removeAddress(${idx})">Remove</button>`;
+        list.appendChild(div);
+      });
+    }
+
+    function addAddressField() {
+      userData.addresses = userData.addresses || [];
+      userData.addresses.push('');
+      renderAddresses(userData.addresses);
+    }
+    function updateAddress(idx, value) {
+      userData.addresses[idx] = value;
+    }
+    function removeAddress(idx) {
+      userData.addresses.splice(idx, 1);
+      renderAddresses(userData.addresses);
+    }
+
+    document.getElementById('editUserForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('msg');
+      msg.innerText = '';
+      const fullName = document.getElementById('fullName').value.trim();
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const wallet = userData.wallet || 0;
+      const addresses = userData.addresses || [];
+      if (!fullName || !phoneNumber || !email) {
+        msg.innerText = 'Please fill all required fields.';
+        msg.classList.add('error');
+        return;
+      }
+      try {
+        await db.collection('users').doc(userDocId).update({
+          fullName, phoneNumber, email, wallet, addresses
+        });
+        msg.innerText = 'User updated successfully!';
+        msg.classList.remove('error');
+        setTimeout(() => {
+          window.location.href = 'users.list.html';
+        }, 1200);
+      } catch (err) {
+        msg.innerText = 'Failed to update user.';
+        msg.classList.add('error');
+      }
+    });
+
+    fetchUser();
+  </script>
+</body>
+</html>
